@@ -73,6 +73,13 @@ services:
   gitlab-runner:
     image: gitlab/gitlab-runner:${GITLAB_RUNNER_VERSION:-latest}
     restart: unless-stopped
+    environment:
+      - CI_SERVER_URL=${GITLAB_EXTERNAL_URL}
+      - REGISTRATION_TOKEN=${GITLAB_RUNNER_REGISTRATION_TOKEN}
+      - RUNNER_NAME=${GITLAB_RUNNER_NAME:-docker-runner}
+      - RUNNER_EXECUTOR=docker
+      - DOCKER_IMAGE=docker:latest
+      - RUNNER_TAG_LIST=${GITLAB_RUNNER_TAGS:-docker}
     volumes:
       - gitlab-runner-config:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock
