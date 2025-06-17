@@ -47,11 +47,15 @@ services:
         # GitLab Shell設定
         gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_SSH_PORT}
 
-        # GitLab Pages設定
+        # Pages内部設定
+        gitlab_pages['listen_proxy'] = 'localhost:8091'
+
+        # GitLab Pages設定 - パスベース（IPアドレス対応）
         pages_external_url '${GITLAB_PAGES_EXTERNAL_URL}'
         gitlab_pages['enable'] = ${GITLAB_PAGES_ENABLED}
-        gitlab_pages['listen_proxy'] = '0.0.0.0:8090'
+        gitlab_pages['namespace_in_path'] = true
         gitlab_pages['access_control'] = ${GITLAB_PAGES_ACCESS_CONTROL}
+        
 
     ports:
       - '${GITLAB_HTTP_PORT}:80'
@@ -98,7 +102,6 @@ services:
       while true; do
         echo "[$(date)] バックアップを開始します"
         docker exec gitlab gitlab-rake gitlab:backup:create
-        echo "[$(date)] バックアップが完了しました"
         sleep ${BACKUP_INTERVAL}
       done
       '
