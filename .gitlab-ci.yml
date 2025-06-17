@@ -1,0 +1,30 @@
+# ローカルGitLab環境用のPages設定
+pages:
+  stage: deploy
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache rsync
+  script:
+    - echo "Static site deployment started..."
+    - mkdir -p public
+    
+    # 静的ファイルをpublicディレクトリにコピー
+    - cp index.html public/
+    - if [ -d "css" ]; then cp -r css public/; fi
+    - if [ -d "js" ]; then cp -r js public/; fi
+    - if [ -d "images" ]; then cp -r images public/; fi
+    - if [ -d "assets" ]; then cp -r assets public/; fi
+    
+    # デプロイ内容を確認
+    - echo "Files in public directory:"
+    - ls -la public/
+    
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main
+    - master
+  tags:
+    - docker  # あなたのRunner設定に合わせる

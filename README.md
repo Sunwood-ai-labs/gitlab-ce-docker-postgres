@@ -1,5 +1,7 @@
 <div align="center">
 
+![](header.png)
+
 # 🐳 GitLab CE Docker with PostgreSQL
 
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -9,16 +11,13 @@
 
 </div>
 
+<div align="center">
+
 ## 📋 目次
 
-- [🚀 クイックスタート](#-クイックスタート)
-- [⚙️ 設定](#️-設定)
-- [🏃‍♂️ GitLab Runner登録](#️-gitlab-runner登録)
-- [🔐 初期rootパスワードの確認](#-初期rootパスワードの確認)
-- [🔧 メンテナンス](#-メンテナンス)
-- [📊 監視](#-監視)
-- [❓ トラブルシューティング](#-トラブルシューティング)
-- [📚 参考資料](#-参考資料)
+[🚀 クイックスタート](#-クイックスタート) • [⚙️ 設定](#️-設定) • [🏃‍♂️ GitLab Runner登録](#️-gitlab-runner登録) • [🔐 初期rootパスワードの確認](#-初期rootパスワードの確認) • [🔧 メンテナンス](#-メンテナンス) • [📊 監視](#-監視) • [❓ トラブルシューティング](#-トラブルシューティング) • [📚 参考資料](#-参考資料)
+
+</div>
 
 ## 🚀 クイックスタート
 
@@ -86,6 +85,14 @@ docker-compose exec gitlab-runner gitlab-runner register \
 ```
 
 > ⚠️ **セキュリティ注意**: registration tokenは `.env` ファイルで管理してください。
+
+## 📋 GitLab CI/CD設定
+
+プロジェクトルートに `.gitlab-ci.yml` ファイルが配置されており、GitLab Pagesの自動デプロイ設定が含まれています。このファイルは以下の機能を提供します：
+
+- 静的サイトの自動デプロイ（main/masterブランチ）
+- Alpine Linuxベースの軽量な実行環境
+- 30日間のアーティファクト保持
 
 ## 🔐 初期rootパスワードの確認
 
